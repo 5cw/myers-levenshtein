@@ -91,12 +91,12 @@ def optimized_hyyro(a, b):
     for c in b:
         x = peq[ord(c)] | mv_ph
         d0 = (x & pv_mh) + pv_mh ^ pv_mh | x
-        mv_ph |= 1 | ~pv_mh & ~d0
+        mv_ph |= 1 | ~(pv_mh | d0)
         pv_mh &= d0
         score += (mv_ph >> m & 1) - (pv_mh >> m & 1)
         mv_ph <<= 1
         pv_mh <<= 1
-        pv_mh |= ~mv_ph & ~x
+        pv_mh |= ~(mv_ph | x)
         mv_ph &= x
     return score
 for a, b in discrepancies:
